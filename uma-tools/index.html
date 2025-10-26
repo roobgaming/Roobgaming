@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0f12" />
+  <title>Uma Tools — Compatibilidad y Simulador</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icons/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    .app-header { padding-top: calc(.75rem + env(safe-area-inset-top)); }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon">🐎</span>
+      <h1>Uma Tools</h1>
+    </div>
+    <nav class="tabs">
+      <button class="tab is-active" data-tab="compat">Compatibilidad</button>
+      <button class="tab" data-tab="sim">Simulador</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Calculadora de compatibilidad -->
+    <section id="tab-compat" class="tab-panel is-active">
+      <h2>Calculadora de afinidad (compatibilidad)</h2>
+
+      <div class="compat-grid">
+        <!-- Fila 1 -->
+        <div class="slot-card" data-slot="sl-1-1">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">SL 1-1</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <div class="slot-card" data-slot="sl-1-2">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">SL 1-2</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <div class="slot-card" data-slot="sl-2-1">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">SL 2-1</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <div class="slot-card" data-slot="sl-2-2">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">SL 2-2</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <!-- Fila 2 -->
+        <div class="slot-card tall" data-slot="legacy-1">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">Legado 1</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <div class="slot-card tall" data-slot="legacy-2">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">Legado 2</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+        <!-- Fila 3 centro -->
+        <div class="slot-card center" data-slot="main">
+          <div class="slot-icon">+</div>
+          <div class="slot-title">Personaje principal</div>
+          <button class="slot-action">Seleccionar</button>
+        </div>
+      </div>
+
+      <div class="compat-actions">
+        <button id="btn-recommend" class="link-btn">❤️ Recomendar</button>
+        <button id="btn-reset" class="link-btn">↻ Reiniciar</button>
+      </div>
+
+      <div id="compat-result" class="panel">
+        <h3>Resultado</h3>
+        <div class="compat-score">
+          <span>Puntaje total:</span>
+          <strong id="compat-score-val">0</strong>
+        </div>
+        <div id="compat-breakdown"></div>
+      </div>
+    </section>
+
+    <!-- Simulador -->
+    <section id="tab-sim" class="tab-panel">
+      <h2>Simulador de carreras</h2>
+
+      <div class="sim-config">
+        <div class="field">
+          <label>Distancia</label>
+          <select id="sim-distance">
+            <option value="1200">1200 (Corta)</option>
+            <option value="1600">1600 (Milla)</option>
+            <option value="2000" selected>2000 (Media)</option>
+            <option value="3000">3000 (Larga)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Condición de pista</label>
+          <select id="sim-track">
+            <option value="firm" selected>Firme</option>
+            <option value="good">Buena</option>
+            <option value="yielding">Pesada</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Clima</label>
+          <select id="sim-weather">
+            <option value="clear" selected>Despejado</option>
+            <option value="cloudy">Nublado</option>
+            <option value="rain">Lluvia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sim-roster">
+        <h3>Participantes</h3>
+        <button id="btn-add-runner" class="primary">Añadir personaje</button>
+        <div id="runner-list" class="runner-list"></div>
+      </div>
+
+      <div class="sim-actions">
+        <button id="btn-run" class="accent">Iniciar simulación</button>
+      </div>
+
+      <div id="sim-output" class="panel">
+        <h3>Resultados</h3>
+        <div id="sim-log" class="mono small"></div>
+        <table id="sim-table">
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Nombre</th>
+              <th>Estrategia</th>
+              <th>Tiempo (s)</th>
+            </tr>
+          </thead>
+          <tbody id="sim-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de selección -->
+  <div id="picker-modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Seleccionar personaje</h3>
+        <button class="icon-btn" id="picker-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="search" id="picker-search" placeholder="Buscar..." />
+        <div id="picker-list" class="picker-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de edición de corredor -->
+  <div id="runner-modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Configurar corredor</h3>
+        <button class="icon-btn" id="runner-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-2">
+          <div>
+            <label>Personaje</label>
+            <select id="runner-char"></select>
+          </div>
+          <div>
+            <label>Estrategia</label>
+            <select id="runner-strategy">
+              <option value="runner">Runner</option>
+              <option value="leader" selected>Leader</option>
+              <option value="betweener">Betweener</option>
+              <option value="chaser">Chaser</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-5">
+          <div><label>Vel</label><input id="stat-speed" type="number" min="0" max="1500" value="900"></div>
+          <div><label>Res</label><input id="stat-stamina" type="number" min="0" max="1500" value="900"></div>
+          <div><label>Pot</label><input id="stat-power" type="number" min="0" max="1500" value="900"></div>
+          <div><label>Cor</label><input id="stat-guts" type="number" min="0" max="1500" value="900"></div>
+          <div><label>Sab</label><input id="stat-wisdom" type="number" min="0" max="1500" value="900"></div>
+        </div>
+
+        <div>
+          <label>Habilidades</label>
+          <div id="skills-list" class="skills"></div>
+        </div>
+
+        <div class="actions right">
+          <button id="runner-save" class="primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/register-sw.js"></script>
+</body>
+</html>

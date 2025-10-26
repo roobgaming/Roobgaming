@@ -1,0 +1,23 @@
+[
+  {
+    "id": "last-spurt-boost",
+    "name": "Impulso final",
+    "phase": "final",
+    "effects": { "acceleration_pct": 5, "duration_s": 3 },
+    "trigger": { "chance_pct": 40 }
+  },
+  {
+    "id": "good-start",
+    "name": "Salida limpia",
+    "phase": "start",
+    "effects": { "speed_pct": 3, "duration_s": 5 },
+    "trigger": { "chance_pct": 60 }
+  },
+  {
+    "id": "stamina-saver",
+    "name": "Ahorro de energía",
+    "phase": "mid",
+    "effects": { "stamina_save_pct": 5, "duration_s": 10 },
+    "trigger": { "chance_pct": 50 }
+  }
+]

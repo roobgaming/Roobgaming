@@ -1,0 +1,26 @@
+[
+  {
+    "id": "special-week",
+    "name": "Special Week",
+    "tags": ["medium", "leader", "grass", "jp"],
+    "aptitudes": { "short": "B", "mile": "A", "medium": "A", "long": "B" }
+  },
+  {
+    "id": "silence-suzuka",
+    "name": "Silence Suzuka",
+    "tags": ["mile", "runner", "grass", "jp"],
+    "aptitudes": { "short": "B", "mile": "A", "medium": "A", "long": "C" }
+  },
+  {
+    "id": "tokai-teio",
+    "name": "Tokai Teio",
+    "tags": ["medium", "leader", "grass", "jp"],
+    "aptitudes": { "short": "C", "mile": "A", "medium": "A", "long": "B" }
+  },
+  {
+    "id": "oguri-cap",
+    "name": "Oguri Cap",
+    "tags": ["mile", "medium", "leader", "grass"],
+    "aptitudes": { "short": "B", "mile": "A", "medium": "A", "long": "B" }
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "mode": "groups",
+  "hiddenWinsEnabled": true,
+  "weights": {
+    "shared_strategy": 12,
+    "shared_distance_tag": 10,
+    "aptitude_match_A": 8,
+    "aptitude_match_B": 4,
+    "legacy_bonus": 6,
+    "unique_synergy": 15
+  },
+  "legacy": { "max_slots": 2 },
+  "unique_pairs": [
+    { "a": "special-week", "b": "silence-suzuka", "score": 10, "reason": "Compañeras icónicas" },
+    { "a": "tokai-teio", "b": "oguri-cap", "score": 8, "reason": "Afinidad histórica" }
+  ]
+}
